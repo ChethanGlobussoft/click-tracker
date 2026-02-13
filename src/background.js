@@ -84,12 +84,20 @@ async function sendLogToApi(visitData) {
         visitData.gmail.attachments.length > 0
       ) {
         for (const att of visitData.gmail.attachments) {
-          if (att.content && att.content.startsWith("data:")) {
+          if (
+            att.content &&
+            typeof att.content === "string" &&
+            (att.content.startsWith("data:") ||
+              att.content.startsWith("http") ||
+              att.content.startsWith("blob:"))
+          ) {
             try {
               const resp = await fetch(att.content);
               const blob = await resp.blob();
               formData.append("attachments", blob, att.name);
-            } catch (e) {}
+            } catch (e) {
+              console.warn(`Failed to fetch attachment ${att.name}:`, e);
+            }
           }
         }
       }

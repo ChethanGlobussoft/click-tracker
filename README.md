@@ -19,7 +19,7 @@ Click Tracker EMP is a powerful Chromium-based extension designed for comprehens
 
 ### 3. Advanced Gmail Monitoring
 
-- **Sent Emails**: Captures outgoing email details including To, CC, BCC, Subject, Body, and File Attachments (up to 3MB).
+- **Sent Emails**: Captures outgoing email details including To, CC, BCC, Subject, Body, and File Attachments (up to 10MB).
 - **Received Emails**: Automatically extracts sender info, subject, and body when an email is opened.
 - **Detailed Recipient Parsing**: Deep-scans Gmail's "Show Details" table to accurately separate To, CC, and BCC recipients of received mail.
 
@@ -91,7 +91,7 @@ This will generate a `dist/` folder containing the compiled extension.
 
 - **Context Awareness**: Content scripts include safety checks (`chrome.runtime.id`) to prevent errors when the extension reloads.
 - **Graceful Failure**: If the API returns a `401 Unauthorized`, the extension automatically clears local auth data and prompts for re-login.
-- **Attachment Limits**: Large files (>3MB) are flagged but not stored locally to prevent browser storage quota issues.
+- **Attachment Limits**: Large files (>10MB) are flagged but not stored locally to prevent browser storage quota issues.
 
 ## 📜 Development Commands
 

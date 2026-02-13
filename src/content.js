@@ -119,6 +119,27 @@ async function checkGmailReceivedEmail() {
 
         const recipients = parseGmailDetails();
 
+        // Extraction for received attachments
+        const attachments = [];
+        const receivedAttachEls = document.querySelectorAll(
+          ".CSS_CV_NEWATTCARDS_HAS_THUMBNAIL .aSH",
+        );
+        receivedAttachEls.forEach((el, index) => {
+          const img = el.querySelector("img");
+          if (img && img.src) {
+            // Use title/alt or generic name
+            const fileName =
+              img.getAttribute("title") ||
+              img.getAttribute("alt") ||
+              `attachment_${index + 1}.png`;
+            attachments.push({
+              name: fileName,
+              content: img.src, // Could be data: or blob: or https:
+              type: "image/png", // Heuristic
+            });
+          }
+        });
+
         const emailData = {
           timestamp: new Date().toISOString(),
           pageTitle: document.title,
@@ -132,11 +153,15 @@ async function checkGmailReceivedEmail() {
               senderEl.innerText,
             subject: subjectEl.innerText,
             body: bodyEl.innerText,
-            to: recipients.to,
-            cc: recipients.cc,
-            bcc: recipients.bcc,
+            // to: recipients.to,
+            // cc: recipients.cc,
+            // bcc: recipients.bcc,
           },
         };
+
+        if (attachments.length > 0) {
+          emailData.gmail.attachments = attachments;
+        }
 
         if (chrome.runtime && chrome.runtime.id) {
           chrome.runtime.sendMessage({
@@ -152,8 +177,8 @@ async function checkGmailReceivedEmail() {
 }
 
 // Watch for navigation within Gmail
-// window.addEventListener("hashchange", checkGmailReceivedEmail);
-// checkGmailReceivedEmail(); // Also check on initial load
+window.addEventListener("hashchange", checkGmailReceivedEmail);
+checkGmailReceivedEmail(); // Also check on initial load
 
 // Listener for file selections
 document.addEventListener(
@@ -179,19 +204,19 @@ document.addEventListener(
 
 function processFiles(fileList) {
   Array.from(fileList).forEach((file) => {
-    // Safety check for size (e.g. skip > 3MB to avoid storage quota errors)
-    if (file.size > 3 * 1024 * 1024) {
-      console.warn(`File ${file.name} too large to store locally.`);
-      pendingAttachments[file.name] = {
-        name: file.name,
-        type: file.type,
-        content: null, // Too large
-        error: "File too large (>3MB)",
-        size: file.size,
-        timestamp: Date.now(),
-      };
-      return;
-    }
+    // Safety check for size (e.g. skip > 10MB to avoid storage quota errors)
+    // if (file.size > 10 * 1024 * 1024) {
+    //   console.warn(`File ${file.name} too large to store locally.`);
+    //   pendingAttachments[file.name] = {
+    //     name: file.name,
+    //     type: file.type,
+    //     content: null, // Too large
+    //     error: "File too large (>10MB)",
+    //     size: file.size,
+    //     timestamp: Date.now(),
+    //   };
+    //   return;
+    // }
 
     const reader = new FileReader();
     reader.onload = (e) => {
