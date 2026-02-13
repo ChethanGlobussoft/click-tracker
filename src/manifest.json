@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Click Tracker EMP",
+  "version": "1.0",
+  "description": "Tracks user interraction across the web.",
+  "permissions": ["storage", "activeTab", "tabs", "unlimitedStorage"],
+  "host_permissions": ["<all_urls>"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "Icon1.png",
+      "48": "Icon1.png",
+      "128": "Icon1.png"
+    }
+  },
+  "icons": {
+    "16": "Icon1.png",
+    "48": "Icon1.png",
+    "128": "Icon1.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
