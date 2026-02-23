@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Click Tracker EMP",
   "version": "1.0",
-  "description": "Tracks user interraction across the web.",
+  "description": "Tracks user interaction across the web.",
   "permissions": ["storage", "activeTab", "tabs", "unlimitedStorage"],
   "host_permissions": ["<all_urls>"],
   "action": {
