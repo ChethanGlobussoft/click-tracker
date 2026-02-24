@@ -30,6 +30,9 @@ async function checkGmailReceivedEmail() {
   if (!window.location.hostname.includes("mail.google.com")) return;
 
   const hash = window.location.hash;
+  // Ignore sent emails
+  if (hash.includes("#sent")) return;
+
   // Gmail message IDs in hash can be 16 hex characters or longer alphanumeric strings
   const msgMatch = hash.match(/[#\/]([a-zA-Z0-9]{16,})\b/);
 
@@ -339,6 +342,16 @@ document.addEventListener(
           return null;
         };
 
+        const extractFrom = () => {
+          const titleMatch = document.title.match(
+            /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/,
+          );
+          if (titleMatch) return titleMatch[0];
+
+          return null;
+        };
+
+        const from = extractFrom();
         const to = extractRecipients("to");
         const cc = extractRecipients("cc");
         const bcc = extractRecipients("bcc");
@@ -352,6 +365,7 @@ document.addEventListener(
         );
         const body = bodyEl ? bodyEl.innerText : null;
 
+        if (from) clickData.gmail.from = from;
         if (to) clickData.gmail.to = to;
         if (cc) clickData.gmail.cc = cc;
         if (bcc) clickData.gmail.bcc = bcc;

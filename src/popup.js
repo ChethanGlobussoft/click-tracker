@@ -106,6 +106,8 @@ document.addEventListener("DOMContentLoaded", () => {
             gmailHtml += `<div class="gmail-field gmail-body"><strong>Body:</strong> ${item.gmail.body}</div>`;
           if (item.gmail.to)
             gmailHtml += `<div class="gmail-field"><strong>To:</strong> ${item.gmail.to}</div>`;
+          if (item.gmail.from)
+            gmailHtml += `<div class="gmail-field"><strong>From:</strong> ${item.gmail.from}</div>`;
           if (item.gmail.cc)
             gmailHtml += `<div class="gmail-field"><strong>CC:</strong> ${item.gmail.cc}</div>`;
           if (item.gmail.bcc)
