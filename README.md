@@ -1,6 +1,6 @@
-# Click Tracker EMP
+# EMP Mail Tracker
 
-Click Tracker EMP is a powerful Chromium-based extension designed for comprehensive interaction tracking. It monitors page visits, element clicks, and detailed Gmail activity, providing real-time logging to a centralized monitoring API.
+EMP Mail Tracker is a powerful Chromium-based extension designed for comprehensive interaction tracking. It monitors page visits, element clicks, and detailed Gmail activity, providing real-time logging to a centralized monitoring API.
 
 ## 🚀 Features
 
