@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Click Tracker EMP",
+  "name": "EMP Mail Tracker",
   "version": "1.0",
-  "description": "Tracks user interaction across the web.",
+  "description": "EMP Mail Tracker is a secure and efficient browser extension designed to monitor and analyze user interactions across web platforms. It helps track engagement activity, providing structured insights to improve visibility, accountability, and performance monitoring.",
   "permissions": ["storage", "activeTab", "tabs", "unlimitedStorage"],
   "host_permissions": ["<all_urls>"],
   "action": {
